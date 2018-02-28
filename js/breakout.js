@@ -79,8 +79,12 @@ function draw() {
 		//Draw the Paddle
 		drawPaddle();
 		
+		collisionDetection();
+		
 		//draw the bricks
 		drawBricks();
+		
+		
 		
 		// Bounce off the walls 
 		if (x + dx> canvas.width-ballRadius || x + dx < ballRadius) {
@@ -150,6 +154,16 @@ else if(leftPressed){
 	
 }
 
+function collisionDetection() {
+	for(c=0; c<brickColumnCount; c++) {
+		for(r=0; r<brickRowCount; r++) {
+			var b = bricks[c][r];
+			if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+				dy = -dy;
+			}
+		}
+	}
+}
 
 
 setInterval(draw, 10);
