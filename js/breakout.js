@@ -8,7 +8,7 @@ var y = canvas.height-30;
 var dx = 2;
 var dy= -2;
 var ballRadius = 10;
-var ballColour = "blue";
+var ballColour = "0095DD";
 
 // Define the paddle 
 var paddleHeight = 10;
@@ -48,11 +48,14 @@ function draw() {
 		// Bounce off the walls 
 		if (x + dx> canvas.width-ballRadius || x + dx < ballRadius) {
 			dx = -dx;
-			ballColour = "red";
+			
 		}
-		if (y + dy> canvas.height-ballRadius || y + dy < ballRadius) {
+		if (y + dy < ballRadius) {
 			dy = -dy;
-			ballColour = "green";
+		} else if(y + dy > canvas.height-ballRadius) {
+			alert("GAME OVER");
+			document.location.reload();
+			
 		}
 		
 		if(rightPressed && paddleX < canvas.width-paddleWidth){
@@ -101,10 +104,6 @@ else if(leftPressed){
 		paddleX -= 7;
 	
 }
-
-
-
-
 
 
 
