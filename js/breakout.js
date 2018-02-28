@@ -10,6 +10,14 @@ var dy= -2;
 var ballRadius = 10;
 var ballColour = "blue";
 
+// Define the paddle 
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth)/2;
+var rightPressed = false;
+var leftPressed = false;
+
+
 //Draw the ball 
 function drawBall()	{
 		ctx.beginPath();
@@ -19,9 +27,23 @@ function drawBall()	{
 		ctx.closePath();
 }
 
+
+function drawPaddle()	{
+		ctx.beginPath ();
+		ctx.rect(paddleX, canvas.height-paddleHeight,paddleWidth, paddleHeight);
+		ctx.fillStyle = "#0095DD";
+		ctx.fill();
+		ctx.closePath();
+}
+
 function draw() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
+		// Draw the ball
 		drawBall();
+		
+		//Draw the Paddle
+		drawPaddle();
 		
 		// Bounce off the walls 
 		if (x + dx> canvas.width-ballRadius || x + dx < ballRadius) {
@@ -33,13 +55,60 @@ function draw() {
 			ballColour = "green";
 		}
 		
+		if(rightPressed && paddleX < canvas.width-paddleWidth){
+			paddleX += 7;
+		}
+		
+		else if(leftPressed && paddleX > 0){
+			paddleX -= 7;
+		}
+		
 		x +=dx;
 		y +=dy; 
+	
+}
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+
+
+//Define the functions for events that move the paddle 
+function keyDownHandler(e) {
+		if(e.keyCode == 39) {
+				rightPressed= true;
+		}
+		else if (e.keyCode ==37) {
+			leftPressed = true;
+		}
+}
+
+function keyUpHandler(e) {
+	if(e.keyCode == 39) {
+			rightPressed = false;
+	}
+	else if(e.keyCode == 37) {
+		leftPressed = false;
+	}
+	
+
+}
+	
+	if(rightPressed){
+		paddleX+= 7;
+}
+else if(leftPressed){
+		paddleX -= 7;
 	
 }
 
 
 
 
+
+
+
 setInterval(draw, 10);
+
+
 
