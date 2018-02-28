@@ -18,6 +18,7 @@ var rightPressed = false;
 var leftPressed = false;
 
 
+
 //Draw the ball 
 function drawBall()	{
 		ctx.beginPath();
@@ -53,8 +54,16 @@ function draw() {
 		if (y + dy < ballRadius) {
 			dy = -dy;
 		} else if(y + dy > canvas.height-ballRadius) {
-			alert("GAME OVER");
+			
+			//check if the ball is hitting the paddle 
+			if(x > paddleX && x < paddleX + paddleWidth) {
+				dy = -dy;
+			} 
+			else {
+					alert("GAME OVER");
 			document.location.reload();
+			}
+		
 			
 		}
 		
