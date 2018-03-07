@@ -25,6 +25,7 @@ var brickHeight = 20;
 var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
+var score = 0;
 
 // Hold the bricks in a two dimensional array
 var bricks = [];
@@ -80,6 +81,8 @@ function draw() {
 		
 		//Draw the Paddle
 		drawPaddle();
+		
+		drawScore();
 		
 		collisionDetection();
 		
@@ -166,11 +169,23 @@ else if(leftPressed){
 				if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
 					dy = -dy;
 					b.status = 0;
-					ballColour = "red";
+					score++;
+					if(score == brickRowCount*brickColumnCount) {
+						alert("YOU WIN, CONGRATULATIONS!")
+						document.loaction.reload();
+					}
 				}
 			}
 		}
 	}	
+	}
+	
+	
+	function drawScore() {
+		ctx.font ="16px Arial";
+		ctx.fillStyle = "0095DD"
+		ctx.fillText("Score: "+score, 8, 20);
+		document.getElementById("gamescore").innerHTML ="score: " + score;
 	}
 
 setInterval(draw, 10);
