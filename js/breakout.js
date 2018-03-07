@@ -33,6 +33,10 @@ var SCORE_SOUND = new Audio('sounds/success.wav');
 var GAMEOVER_SOUND = new Audio('sounds/gameover.wav');
 
 
+// Game lives
+var lives = 3;
+
+//Score
 var score = 0;
 
 // Hold the bricks in a two dimensional array
@@ -92,6 +96,8 @@ function draw() {
 		
 		drawScore();
 		
+		drawLives();
+		
 		collisionDetection();
 		
 		//draw the bricks
@@ -114,9 +120,19 @@ function draw() {
 				ballColour ="#0095DD";
 			} 
 			else {
-				GAMEOVER_SOUND.play();
+				lives--;
+				if(!lives) {
+					GAMEOVER_SOUND.play();
 					alert("GAME OVER");
-			document.location.reload();
+					document.location.reload();
+				}
+				else {
+					x = canvas.width/2;
+					y = canvas.height-30;
+					dx = 2;
+					dy = -2;
+					paddleX = (canvas.width-paddleWidth)/2;
+				}
 			}
 		
 			
@@ -200,6 +216,12 @@ else if(leftPressed){
 		document.getElementById("gamescore").innerHTML ="score: " + score;
 	}
 	
+	function drawLives() {
+		ctx.font = "16px Arial";
+		ctx.fillStyle = "0095DD";
+		ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+		document.getElementById("gamelives").innerHTML = "Lives: " + lives;
+	}
 	
 	
 	function mouseMovehandler(e) {
