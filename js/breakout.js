@@ -25,6 +25,14 @@ var brickHeight = 20;
 var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
+
+
+// Game Sounds 
+var WINNING_SOUND = new Audio('sounds/woohoo.wav');
+var SCORE_SOUND = new Audio('sounds/success.wav');
+var GAMEOVER_SOUND = new Audio('sounds/gameover.wav');
+
+
 var score = 0;
 
 // Hold the bricks in a two dimensional array
@@ -106,6 +114,7 @@ function draw() {
 				ballColour ="#0095DD";
 			} 
 			else {
+				GAMEOVER_SOUND.play();
 					alert("GAME OVER");
 			document.location.reload();
 			}
@@ -170,7 +179,9 @@ else if(leftPressed){
 					dy = -dy;
 					b.status = 0;
 					score++;
+					SCORE_SOUND.play();
 					if(score == brickRowCount*brickColumnCount) {
+						WINNING_SOUND.play();
 						alert("YOU WIN, CONGRATULATIONS!")
 						document.loaction.reload();
 					}
